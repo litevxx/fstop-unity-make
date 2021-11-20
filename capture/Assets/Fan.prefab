@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7832760129586144303}
   - component: {fileID: 7832760129586144297}
   - component: {fileID: 7832760129586144290}
+  - component: {fileID: 1572035529423704901}
   m_Layer: 0
   m_Name: Fan
   m_TagString: Capturable
@@ -109,3 +110,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3df6f912ca4001429c8f186c341acfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1572035529423704901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7832760129586144296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c4cdae340437041b7bda8fcfaf5060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeCaptured: 1
+  canBeScaled: 0
+  alignToWall: 1
+  onlyScaleXY: 1
+  beingPlaced: 0

@@ -50,18 +50,23 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\DeveloperConsole\Core\Commands.cs" />
+     <Compile Include="Assets\Door.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\DeveloperConsole\Core\Command.cs" />
+     <Compile Include="Assets\Fan.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
      <Compile Include="Assets\copilot.cs" />
      <Compile Include="Assets\capture.cs" />
      <Compile Include="Assets\DeveloperConsole\Core\ConsoleUtility.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+     <Compile Include="Assets\fizzler.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+     <Compile Include="Assets\catapult.cs" />
+     <Compile Include="Assets\DoorButton.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -82,11 +87,8 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
-     <Compile Include="Assets\fizzler.cs" />
-     <Compile Include="Assets\DoorButton.cs" />
-     <Compile Include="Assets\Door.cs" />
-     <Compile Include="Assets\Fan.cs" />
-     <Compile Include="Assets\catapult.cs" />
+     <Compile Include="Assets\Capturable.cs" />
+     <Compile Include="Assets\Stickpad.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -684,6 +686,10 @@
       <Project>{2f03ffea-1866-3869-877a-f9cbc29eb4a5}</Project>
       <Name>Unity.VSCode.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.Postprocessing.Runtime.csproj">
+      <Project>{acc19c92-1a7c-764f-3baa-14f58bef831e}</Project>
+      <Name>Unity.Postprocessing.Runtime</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.ProBuilder.AssetIdRemapUtility.csproj">
       <Project>{c02b436b-530e-9834-be8f-1cc23d73eb52}</Project>
       <Name>Unity.ProBuilder.AssetIdRemapUtility</Name>
@@ -720,29 +726,33 @@
       <Project>{83fc570f-1e76-285e-3198-3136264e75ba}</Project>
       <Name>Unity.ProBuilder.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
+      <Project>{f6631ab4-f5e7-bee4-8ed5-dd7ce1c0b7d0}</Project>
+      <Name>Unity.Postprocessing.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{38d0f505-81c9-a064-4437-b5d8141190af}</Project>
       <Name>UnityEditor.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.PlasticSCM.Editor.csproj">
-      <Project>{352ae794-ef82-57e7-1f06-9e1745cad66f}</Project>
-      <Name>Unity.PlasticSCM.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Rider.Editor.csproj">
       <Project>{aac22f66-6e77-de67-6ee6-c6a8cd9f5992}</Project>
       <Name>Unity.Rider.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.ProGrids.Editor.csproj">
+      <Project>{b9dcbd23-4b16-2c2a-3826-95842c7f9171}</Project>
+      <Name>Unity.ProGrids.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{436d3b18-eca8-32f4-0bd1-af5247355c81}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
-      <Project>{f6631ab4-f5e7-bee4-8ed5-dd7ce1c0b7d0}</Project>
-      <Name>Unity.Postprocessing.Editor</Name>
+    <ProjectReference Include="Unity.ProGrids.csproj">
+      <Project>{48e676ee-47da-53a8-e958-be358376aa43}</Project>
+      <Name>Unity.ProGrids</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Runtime.csproj">
-      <Project>{acc19c92-1a7c-764f-3baa-14f58bef831e}</Project>
-      <Name>Unity.Postprocessing.Runtime</Name>
+    <ProjectReference Include="Unity.PlasticSCM.Editor.csproj">
+      <Project>{352ae794-ef82-57e7-1f06-9e1745cad66f}</Project>
+      <Name>Unity.PlasticSCM.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

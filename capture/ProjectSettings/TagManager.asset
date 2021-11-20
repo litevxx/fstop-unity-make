@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Capturable
   - ThumbCam
+  - NoPlace
   layers:
   - Default
   - TransparentFX

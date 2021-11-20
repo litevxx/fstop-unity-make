@@ -14,6 +14,9 @@ public class Fan : MonoBehaviour
     void FixedUpdate()
     {
         // Fan code
+        // Only push objects when the fan is not being placed, check Capturable beingPlaced
+        if(gameObject.GetComponent<Capturable>().beingPlaced == false)
+        {
         Vector3 fanDirection = transform.up;
         RaycastHit[] hits = Physics.RaycastAll(transform.position, fanDirection, 100);
         foreach (RaycastHit hit in hits)
@@ -28,6 +31,7 @@ public class Fan : MonoBehaviour
             {
                 hit.rigidbody.AddForce(fanDirection * 0.3f, ForceMode.VelocityChange);
             }
+        }
         }
     }
 
