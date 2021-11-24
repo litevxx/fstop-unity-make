@@ -11,6 +11,7 @@ public class copilot: MonoBehaviour {
 	public AudioSource soundSource;
 	public AudioClip captureSound;
 	public AudioClip releaseSound;
+	public AudioClip denySound;
 	public GameObject thumbCam;
 	public GameObject usedObject = null;
 	public bool isUsing = false;
@@ -18,6 +19,10 @@ public class copilot: MonoBehaviour {
 	public Texture2D capturedThumb = null;
 
 	public GameObject uiCaptureText = null;
+
+	private bool placeAtInvalid = false;
+	private Material curPlaceMat = null;
+	public Material invalidPlaceMat = null;
 	void Start() {
 
 		// Lock mouse to the center of screen
@@ -111,8 +116,15 @@ public class copilot: MonoBehaviour {
 							uiCaptureText.GetComponent < TextMeshProUGUI > ().text = "place";
 							// enable thumbcam rawimage
 							rawImage.enabled = true;
-              captured.GetComponent<Capturable>().beingPlaced = true;
+              				captured.GetComponent<Capturable>().beingPlaced = true;
+							// set curPlaceMat to the material of the object
+							curPlaceMat = captured.GetComponent < MeshRenderer > ().material;
 							isCaptured = true;
+
+						}else{
+							// can't be captured
+							// play deny sound
+							soundSource.PlayOneShot(denySound);
 						}
 					}
 				}
@@ -126,6 +138,8 @@ public class copilot: MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out hit)) {
         if(hit.transform.gameObject.tag != "NoPlace"){
+				Vector3 earlierPos = captured.transform.position;
+				Quaternion earlierRot = captured.transform.rotation;
 				// Instead of just putting the object at the hit point, we need to align it at whatever surface we hit
 				// We can use the hit normal to align the object
 				//captured.transform.position = hit.point + hit.normal * captured.GetComponent < Collider > ().bounds.extents.x;
@@ -134,7 +148,9 @@ public class copilot: MonoBehaviour {
 				// We can use the hit normal to detect if we're on a wall
 					//if (hit.normal.y < 0.5) {
             // this works, but only on some walls, we need to do more checks
-         if(hit.normal.y < 0.5){
+
+		captured.transform.position = hit.point;
+         /*if(hit.normal.y < 0.5){
            captured.transform.position = hit.point + hit.normal * captured.GetComponent < Collider > ().bounds.extents.x;
          }
 
@@ -147,11 +163,38 @@ public class copilot: MonoBehaviour {
 
           if(!(hit.normal.y < 0.5) && !(hit.normal.z < -0.5) && !(hit.normal.z > 0.5)){
             	captured.transform.position = hit.point + hit.normal * captured.GetComponent < Collider > ().bounds.extents.y;
-          }
+          }*/
 
 
-        
-
+        // detect if the captured gameobject is currently stuck inside more than one object
+		// we need a layer mask for only layer 6, which is level geometry
+		// only do this check if we aren't alignToWall
+		if(captured.GetComponent<Capturable>().alignToWall == false){
+		int layerMask = 1 << 6;
+				if (Physics.OverlapBox(captured.transform.position, captured.GetComponent < Collider > ().bounds.extents, Quaternion.identity, layerMask).Length > 1) {
+					// print fuck to console
+					print("fuck");
+					// HACK: Just hide the object, fuck it. Reverting the position
+					// isn't smooth, so this is probably better than nothing
+					//captured.GetComponent<MeshRenderer>().enabled = false;
+					// Actually nvm, this sucks even more, we need to revert the position anyway
+					captured.transform.position = earlierPos;
+					captured.transform.rotation = earlierRot;
+					// Reverting the position still sucks, fuck.
+					
+					// Change the mat to the invalid mat
+					//captured.GetComponent < MeshRenderer > ().material = invalidPlaceMat;
+					placeAtInvalid = true;
+				}else{
+					earlierPos = captured.transform.position;
+					earlierRot = captured.transform.rotation;
+					// undo the mat change by going to currentplacemat
+					//captured.GetComponent < MeshRenderer > ().material = curPlaceMat;
+					placeAtInvalid = false;
+				}
+		}else{
+			placeAtInvalid = false;
+		}
 
 				// If we hit a wall, we need to align and rotate the object onto the wall
 				// We need to align the object to the surface we hit
@@ -164,7 +207,10 @@ public class copilot: MonoBehaviour {
 				captured.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
         }
 
-        }
+        }else{
+			// Can't place here, play the deny sound
+			soundSource.PlayOneShot(denySound);
+		}
 			}
 
 			// When we scroll our mouse wheel up, increase the size of the captured object slightly. When we scroll it down, decrease the size of the object slightly
@@ -192,7 +238,10 @@ public class copilot: MonoBehaviour {
 					captured.transform.localScale = Vector3.Lerp(captured.transform.localScale, captured.transform.localScale - scaleAmount, Time.deltaTime * 10);
 				}
 			}
-			if (Input.GetMouseButtonUp(0)) {
+			if (Input.GetMouseButtonUp(0) ) {
+			//	if(!placeAtInvalid){
+				isCaptured = false;
+				// Exiting placement mode and placing the object
 				// check if the captured has a rigidbody, and if it does, unfreeze it
 				if (captured.GetComponent < Rigidbody > ()) {
 					captured.GetComponent < Rigidbody > ().isKinematic = false;
@@ -208,9 +257,15 @@ public class copilot: MonoBehaviour {
 				uiCaptureText.GetComponent < TextMeshProUGUI > ().text = "capture";
 				// hide rawimage
 				rawImage.enabled = false;
-        captured.GetComponent<Capturable>().beingPlaced = false;
-				isCaptured = false;
-        
+				// revert to earlierpos
+				//captured.transform.position = earlierPos;
+				placeAtInvalid = false;
+       		    captured.GetComponent<Capturable>().beingPlaced = false;
+
+				//}else{
+				//	// play deny sound
+				//	soundSource.PlayOneShot(denySound);
+				//}
 			}
 		}
 

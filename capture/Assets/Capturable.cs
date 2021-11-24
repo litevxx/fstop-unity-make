@@ -15,7 +15,7 @@ public class Capturable : MonoBehaviour
     [Tooltip("Whether the object can be scaled at the time")]
     public bool canBeScaled = true;
     [Tooltip("Whether the object should be aligned to the wall if it is placed there")]
-    public bool alignToWall = true;
+    public bool alignToWall = false;
     [Tooltip("Whether the object should only be scaled by x and y and not z")]
     public bool onlyScaleXY = false;
 
